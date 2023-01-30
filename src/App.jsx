@@ -190,13 +190,13 @@ function ToDo({
 			>
 				<input
 					type="checkbox"
+					onClick={handleOnClick}
 					id={id}
 					className="mr-6 align-baseline hidden"
 				></input>
 
 				<label
 					tabIndex="0"
-					onClick={handleOnClick}
 					onKeyDown={handleOnKeyDown}
 					htmlFor={id}
 					className="w-full text-left p-6 hover:cursor-pointer pl-12 peer"
