@@ -99,7 +99,7 @@ export default function App() {
 				<form onSubmit={handleSubmit} className="z-50">
 					<input
 						type="textfield"
-						className="bg-slate-700 text-slate-200 p-4 w-full "
+						className="bg-slate-700 text-slate-200 p-4 w-full border-b border-gray-600"
 						autoFocus
 						placeholder="Create a new todo..."
 						onChange={e => setName(e.target.value)}
@@ -110,27 +110,29 @@ export default function App() {
 					</button>
 				</form>
 				<ul>
-					{filteredList.map(todo => (
-						<li
-							className="flex flex-row bg-slate-700 text-slate-200 w-full cursor-pointer border-b border-gray-600"
-							key={todo.id}
-						>
-							<ToDo
-								name={todo.name}
-								handleOnClick={() => handleOnClick(todo.id)}
-								handleOnKeyDown={e => handleOnKeyDown(e, todo.id)}
-								id={todo.id}
-								handleDelete={() => handleDelete(todo.id)}
-								status={todo.isChecked}
-								handleDragStart={e => handleDragStart(e, todo)}
-								handleDragOver={e => handleDragOver(e)}
-								handleDrop={() => handleDrop(todo)}
-							/>
-						</li>
-					))}
+					{filteredList.length > 0
+						? filteredList.map(todo => (
+								<li
+									className="flex flex-row bg-slate-700 text-slate-200 w-full cursor-pointer border-b border-gray-600"
+									key={todo.id}
+								>
+									<ToDo
+										name={todo.name}
+										handleOnClick={() => handleOnClick(todo.id)}
+										handleOnKeyDown={e => handleOnKeyDown(e, todo.id)}
+										id={todo.id}
+										handleDelete={() => handleDelete(todo.id)}
+										status={todo.isChecked}
+										handleDragStart={e => handleDragStart(e, todo)}
+										handleDragOver={e => handleDragOver(e)}
+										handleDrop={() => handleDrop(todo)}
+									/>
+								</li>
+						  ))
+						: "No todo in the list"}
 				</ul>
 
-				<div className="flex flex-row gap-2 justify-center p-2">
+				<div className="flex flex-row gap-2 justify-center p-2 border-t border-gray-600">
 					<button
 						onClick={() => handleFilter("all")}
 						className={`hover:text-gray-300 ${
