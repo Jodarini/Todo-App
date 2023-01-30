@@ -230,7 +230,7 @@ function ToDo({
 					</svg>
 				</label>
 				<label
-					className="hidden rounded-full hover:bg-slate-400 right-2 absolute group-hover:block cursor-pointer peer-focus:block focus:block"
+					className="md:hidden rounded-full hover:bg-slate-400 right-2 absolute group-hover:block cursor-pointer peer-focus:block focus:block"
 					onClick={handleDelete}
 				>
 					&times;
