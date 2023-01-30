@@ -7,13 +7,14 @@ let dbMock = [
 	{ name: "Task 2", isChecked: true, id: 1 },
 	{ name: "Task 3", isChecked: true, id: 2 },
 	{ name: "Task 4", isChecked: false, id: 3 },
-	{ name: "Task 5", isChecked: false, id: 5 },
+	{ name: "Task 5", isChecked: false, id: 4 },
 ];
 
 export default function App() {
 	const [name, setName] = useState("");
 	const [todoList, setTodoList] = useState(dbMock);
 	const [filter, setFilter] = useState("all");
+	const [draggedTodo, setDraggedTodo] = useState();
 
 	const newTodo = () => {
 		let newTodo = {
@@ -66,6 +67,31 @@ export default function App() {
 		);
 		setTodoList(newTodoList);
 	};
+
+	const handleDragStart = (e, todo) => {
+		setDraggedTodo(todo);
+
+		// e.dataTransfer.setData("todo", todo);
+		// console.log(todo);
+	};
+
+	const handleDragOver = e => {
+		e.preventDefault();
+	};
+
+	const handleDrop = target => {
+		const newTodoList = [...todoList];
+		const indexOfTarget = newTodoList.indexOf(target);
+		const indexOfdraggedTodo = newTodoList.indexOf(draggedTodo);
+		if (indexOfdraggedTodo > indexOfTarget) {
+			newTodoList.splice(indexOfdraggedTodo, 1);
+			newTodoList.splice(indexOfTarget, 0, draggedTodo);
+		} else if (indexOfdraggedTodo < indexOfTarget) {
+			newTodoList.splice(indexOfdraggedTodo, 1);
+			newTodoList.splice(indexOfTarget, 0, draggedTodo);
+		} else return;
+		setTodoList(newTodoList);
+	};
 	return (
 		<div className="App flex flex-col items-center">
 			<h1 className="text 3xl font-bold color">ToDo app</h1>
@@ -95,6 +121,9 @@ export default function App() {
 								id={todo.id}
 								handleDelete={() => handleDelete(todo.id)}
 								status={todo.isChecked}
+								handleDragStart={e => handleDragStart(e, todo)}
+								handleDragOver={e => handleDragOver(e)}
+								handleDrop={() => handleDrop(todo)}
 							/>
 						</li>
 					))}
@@ -134,10 +163,19 @@ function ToDo({
 	id,
 	handleDelete,
 	status,
+	handleDragStart,
+	handleDrop,
+	handleDragOver,
 }) {
 	return (
 		<>
-			<div className="hover:bg-slate-600 hover:cursor-pointer w-full relative flex flex-row align-middle items-center justify-center group ">
+			<div
+				draggable
+				className="hover:bg-slate-600 hover:cursor-pointer w-full relative flex flex-row align-middle items-center justify-center group "
+				onDragStart={handleDragStart}
+				onDragOver={handleDragOver}
+				onDrop={handleDrop}
+			>
 				<input
 					type="checkbox"
 					id={id}
