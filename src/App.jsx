@@ -27,11 +27,10 @@ export default function App() {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		newTodo();
-		setName("");
+		name.length > 0 && (newTodo(), setName(""));
 	};
 
-	const handleOnChange = todoId => {
+	const handleOnClick = todoId => {
 		const newTodoList = todoList.map(todo => {
 			if (todo.id === todoId) {
 				todo.isChecked = !todo.isChecked;
@@ -40,6 +39,10 @@ export default function App() {
 			return todo;
 		});
 		setTodoList(newTodoList);
+	};
+
+	const handleOnKeyDown = (e, id) => {
+		e.key === "Enter" && handleOnClick(id);
 	};
 
 	const handleDelete = todoId => {
@@ -65,6 +68,7 @@ export default function App() {
 			todo => !todo.isChecked
 		);
 		setTodoList(newTodoList);
+		setFilter("all");
 	};
 
 	const handleDragStart = (e, todo) => {
@@ -110,11 +114,11 @@ export default function App() {
 						<li
 							className="flex flex-row bg-slate-700 text-slate-200 w-full cursor-pointer border-b border-gray-600"
 							key={todo.id}
-							tabIndex="0"
 						>
 							<ToDo
 								name={todo.name}
-								handleOnChange={() => handleOnChange(todo.id)}
+								handleOnClick={() => handleOnClick(todo.id)}
+								handleOnKeyDown={e => handleOnKeyDown(e, todo.id)}
 								id={todo.id}
 								handleDelete={() => handleDelete(todo.id)}
 								status={todo.isChecked}
@@ -157,7 +161,8 @@ export default function App() {
 
 function ToDo({
 	name,
-	handleOnChange,
+	handleOnClick,
+	handleOnKeyDown,
 	id,
 	handleDelete,
 	status,
@@ -177,13 +182,15 @@ function ToDo({
 				<input
 					type="checkbox"
 					id={id}
-					onChange={handleOnChange}
 					className="mr-6 align-baseline hidden"
 				></input>
 
 				<label
+					tabIndex="0"
+					onClick={handleOnClick}
+					onKeyDown={handleOnKeyDown}
 					htmlFor={id}
-					className="w-full text-left p-6 hover:cursor-pointer pl-12"
+					className="w-full text-left p-6 hover:cursor-pointer pl-12 peer"
 				>
 					{name}
 				</label>
@@ -212,7 +219,7 @@ function ToDo({
 					</svg>
 				</label>
 				<label
-					className="hidden rounded-full hover:bg-slate-400 right-2 absolute group-hover:block cursor-pointer"
+					className="hidden rounded-full hover:bg-slate-400 right-2 absolute group-hover:block cursor-pointer peer-focus:block focus:block"
 					onClick={handleDelete}
 				>
 					&times;
