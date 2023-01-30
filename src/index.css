@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	@apply bg-slate-900 text-slate-400;
+}
+/* input:checked ~ label svg {
+	display: block;
+} */
