@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import { v4 as uuidv4 } from "uuid";
 
@@ -28,7 +28,6 @@ export default function App() {
 	const handleSubmit = e => {
 		e.preventDefault();
 		newTodo();
-
 		setName("");
 	};
 
@@ -70,9 +69,6 @@ export default function App() {
 
 	const handleDragStart = (e, todo) => {
 		setDraggedTodo(todo);
-
-		// e.dataTransfer.setData("todo", todo);
-		// console.log(todo);
 	};
 
 	const handleDragOver = e => {
@@ -114,6 +110,7 @@ export default function App() {
 						<li
 							className="flex flex-row bg-slate-700 text-slate-200 w-full cursor-pointer border-b border-gray-600"
 							key={todo.id}
+							tabIndex="0"
 						>
 							<ToDo
 								name={todo.name}
@@ -129,7 +126,7 @@ export default function App() {
 					))}
 				</ul>
 
-				<div className="flex flex-row gap-2 justify-center">
+				<div className="flex flex-row gap-2 justify-center p-2">
 					<button
 						onClick={() => handleFilter("all")}
 						className="hover:text-sky-600"
@@ -153,6 +150,7 @@ export default function App() {
 					</button>
 				</div>
 			</div>
+			Drag an drop to move
 		</div>
 	);
 }
@@ -192,7 +190,11 @@ function ToDo({
 
 				<label
 					htmlFor={id}
-					className="bg-gradient-to-b from-blue-500 to-purple-500 rounded-full h-8 w-8 flex items-center justify-center absolute left-2 hover:cursor-pointer"
+					className={`${
+						status
+							? "bg-gradient-to-b from-blue-500 to-purple-500"
+							: "border-gray-600 border-2 group-hover:border-gray-400"
+					} rounded-full h-8 w-8 flex items-center justify-center absolute left-2 hover:cursor-pointer`}
 				>
 					<svg
 						className={`${status ? "block" : "hidden"}`}
