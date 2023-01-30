@@ -95,7 +95,7 @@ export default function App() {
 	return (
 		<div className="App flex flex-col items-center">
 			<h1 className="text 3xl font-bold color">ToDo app</h1>
-			<div className="flex flex-col bg-slate-700 w-2/6">
+			<div className="flex flex-col bg-slate-700 md:w-2/6">
 				<form onSubmit={handleSubmit} className="z-50">
 					<input
 						type="textfield"
