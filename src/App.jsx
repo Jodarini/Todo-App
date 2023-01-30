@@ -96,10 +96,10 @@ export default function App() {
 		<div className="App flex flex-col items-center">
 			<h1 className="text 3xl font-bold color">ToDo app</h1>
 			<div className="flex flex-col bg-slate-700 w-2/6">
-				<form onSubmit={handleSubmit}>
+				<form onSubmit={handleSubmit} className="z-50">
 					<input
 						type="textfield"
-						className="bg-slate-700 text-slate-200 p-4 w-full"
+						className="bg-slate-700 text-slate-200 p-4 w-full "
 						autoFocus
 						placeholder="Create a new todo..."
 						onChange={e => setName(e.target.value)}
@@ -133,23 +133,32 @@ export default function App() {
 				<div className="flex flex-row gap-2 justify-center p-2">
 					<button
 						onClick={() => handleFilter("all")}
-						className="hover:text-sky-600"
+						className={`hover:text-gray-300 ${
+							filter === "all" && "text-indigo-400"
+						}`}
 					>
 						All
 					</button>
 					<button
 						onClick={() => handleFilter("active")}
-						className="hover:text-sky-600"
+						className={`hover:text-gray-300 ${
+							filter === "active" && "text-indigo-400"
+						}`}
 					>
 						Active
 					</button>
 					<button
 						onClick={() => handleFilter("complete")}
-						className="hover:text-sky-600"
+						className={`hover:text-gray-300 ${
+							filter === "complete" && "text-indigo-400"
+						} `}
 					>
 						Completed
 					</button>
-					<button onClick={() => handleDeleteCompleted()}>
+					<button
+						onClick={() => handleDeleteCompleted()}
+						className="hover:text-gray-300"
+					>
 						Clear all completed
 					</button>
 				</div>
