@@ -152,9 +152,9 @@ export default function App() {
 	return (
 		<div className="flex flex-col items-center">
 			<h1 className="text 3xl color font-bold">ToDo app</h1>
-			<button className="" onClick={() => handleChangeMode()}>
+			{/* <button className="" onClick={() => handleChangeMode()}>
 				{isDarkMode}
-			</button>
+			</button> */}
 			<div className="flex flex-col rounded-3xl bg-slate-700 md:w-2/6">
 				<form onSubmit={handleSubmit} className="z-50">
 					<input
