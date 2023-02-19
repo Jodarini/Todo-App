@@ -130,19 +130,15 @@ export default function App() {
 	};
 
 	const handleDragEnter = target => {
-		if (target === draggedTodo) {
-			console.log("returning before");
-			return;
-		}
 		const newTodoList = [...todoList];
 		const indexOfTarget = newTodoList.indexOf(target);
-		const indexOfdraggedTodo = newTodoList.indexOf(draggedTodo);
+		const indexOfDraggedTodo = newTodoList.indexOf(draggedTodo);
 
-		if (indexOfdraggedTodo > indexOfTarget) {
-			newTodoList.splice(indexOfdraggedTodo, 1);
+		if (indexOfDraggedTodo > indexOfTarget) {
+			newTodoList.splice(indexOfDraggedTodo, 1);
 			newTodoList.splice(indexOfTarget, 0, draggedTodo);
-		} else if (indexOfdraggedTodo < indexOfTarget) {
-			newTodoList.splice(indexOfdraggedTodo, 1);
+		} else if (indexOfDraggedTodo < indexOfTarget) {
+			newTodoList.splice(indexOfDraggedTodo, 1);
 			newTodoList.splice(indexOfTarget, 0, draggedTodo);
 		} else return;
 
